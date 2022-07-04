@@ -49,6 +49,7 @@ jobs:
       steps:
           - print_workflow_id:
               id: $CIRCLE_WORKFLOW_ID
+          - run: exit 1
           - run:
               name: On error
               command: echo "Hello error"
