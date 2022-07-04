@@ -8,8 +8,11 @@ version: 2.1
 commands:
     print_workflow_id:
         description: Print out the circle ci workflow ID
+        parameters:
+            id:
+                type: string
         steps:
-            - run: echo $CIRCLE_WORKFLOW_ID
+            - run: echo << parameters.id >>
 
 jobs:
   save_hello_world_output:
@@ -44,15 +47,16 @@ jobs:
       docker:
           - image: circleci/node:13.8.0
       steps:
-        - print_workflow_id
+          - print_workflow_id:
+              id: $CIRCLE_WORKFLOW_ID
+          - run:
+              name: On error
+              command: echo "Hello error"
+              when: on_fail
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
   say-hello-workflow:
     jobs:
-      - save_hello_world_output
-      - print_world_from_file:
-          requires:
-              - save_hello_world_output
       - print_workflow_id_job
