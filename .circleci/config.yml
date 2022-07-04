@@ -4,6 +4,13 @@ version: 2.1
 
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
+
+commands:
+    print_workflow_id:
+        description: Print out the circle ci workflow ID
+        steps:
+            - run: echo $CIRCLE_WORKFLOW_ID
+
 jobs:
   save_hello_world_output:
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
@@ -33,6 +40,12 @@ jobs:
           name: "Print output.txt contents"
           command: cat /tmp/workspace/output.txt
 
+  print_workflow_id_job:
+      docker:
+          - image: circleci/node:13.8.0
+      steps:
+        - print_workflow_id
+
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
@@ -42,3 +55,4 @@ workflows:
       - print_world_from_file:
           requires:
               - save_hello_world_output
+      - print_workflow_id_job
