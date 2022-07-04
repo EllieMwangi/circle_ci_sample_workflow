@@ -20,7 +20,7 @@ jobs:
           command: echo "hello world to file" > workspace/output.txt
       - persist_to_workspace:
           root: workspace
-          path:
+          paths:
             - output.txt      
   print_world_from_file:
     docker: 
