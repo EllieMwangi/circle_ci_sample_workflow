@@ -28,7 +28,7 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          - at: /tmp/workspace
+          at: /tmp/workspace
       - run:
           name: "Print output.txt contents"
           command: cat output.txt
