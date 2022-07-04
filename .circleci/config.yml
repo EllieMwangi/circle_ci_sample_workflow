@@ -31,7 +31,7 @@ jobs:
           at: /tmp/workspace
       - run:
           name: "Print output.txt contents"
-          command: cat output.txt
+          command: cat /tmp/workspace/output.txt
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
